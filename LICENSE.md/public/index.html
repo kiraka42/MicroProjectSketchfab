@@ -1,0 +1,166 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>internet tab</title>
+
+</head>
+
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js">
+  	
+
+  </script>
+
+
+  <div id="app-2">
+  <span v-bind:title="message">
+    Passez votre souris sur moi pendant quelques secondes
+    pour voir mon titre lié dynamiquement !
+  </span>
+</div>
+
+
+
+<div id="app-4">
+  <ol>
+    <li v-for="todo in todos">
+      {{ todo.text }}
+    </li>
+  </ol>
+</div>
+
+
+<div id="app-6">
+  <p>{{ message }}</p>
+  <input v-model="message">
+</div>
+
+
+
+
+</br>
+
+<div id="todo-list-example">
+  <form v-on:submit.prevent="addNewTodo">
+    <label for="new-todo">Ajouter une tâche</label>
+    <input
+      v-model="newTodoText"
+      id="new-todo"
+      placeholder="Ex. nourrir le chat"
+    >
+    <button>Add</button>
+  </form>
+  <ul>
+    <li
+      is="todo-item"
+      v-for="(todo, index) in todos"
+      v-bind:key="todo.id"
+      v-bind:title="todo.title"
+      v-on:remove="todos.splice(index, 1)"
+    ></li>
+  </ul>
+</div>
+<div id="app">
+  {{ info }}
+</div>
+
+<script type="text/javascript">
+
+/*
+
+Vue.component('todo-item', {
+  template: '\
+    <li>\
+      {{ title }}\
+      <button v-on:click="$emit(\'remove\')">Supprimer</button>\
+    </li>\
+  ',
+  props: ['title']
+})
+*/
+new Vue({
+  el: '#app',
+  data () {
+    return {
+      info: null
+    }
+  },
+  mounted () {
+    axios
+      .get('https://api.coindesk.com/v1/bpi/currentprice.json')
+      .then(response => (this.info = response))
+  }
+})
+/*
+new Vue({
+  el: '#todo-list-example',
+  data: {
+    newTodoText: '',
+    todos: [
+      {
+        id: 1,
+        title: 'Faire la vaisselle',
+      },
+      {
+        id: 2,
+        title: 'Sortir les poubelles',
+      },
+      {
+        id: 3,
+        title: 'Tondre la pelouse'
+      }
+    ],
+    nextTodoId: 4
+  },
+  methods: {
+    addNewTodo: function () {
+      this.todos.push({
+        id: this.nextTodoId++,
+        title: this.newTodoText
+      })
+      this.newTodoText = ''
+    }
+  }
+})
+
+
+	
+var app2 = new Vue({
+  el: '#app-2',
+  data: {
+    message: 'Vous avez affiché cette page le ' + new Date().toLocaleString()
+  }
+})
+
+
+
+var app4 = new Vue({
+  el: '#app-4',
+  data: {
+    todos: [
+      { text: 'Apprendre JavaScript' },
+      { text: 'Apprendre Vue' },
+      { text: 'Créer quelque chose de génial' }
+    ]
+  }
+})
+
+
+
+var app6 = new Vue({
+  el: '#app-6',
+  data: {
+    message: 'Hello Vue !'
+  }
+})
+
+*/
+
+</script>
+
+
+
+</body>
+</html>
